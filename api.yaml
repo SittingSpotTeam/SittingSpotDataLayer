@@ -12,7 +12,7 @@ paths:
       description: Get list of sitting spots
       operationId: getSittingSpots
       responses:
-        '200':
+        200:
           description: Successful operation
           content:
             application/json:
@@ -31,13 +31,13 @@ paths:
               $ref: '#/components/schemas/SittingSpot'
         required: true
       responses:
-        '200':
-          description: Successful operation
+        201:
+          description: Sitting spot created
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SittingSpot'
-        '400':
+        400:
           description: Invalid input
   /{Id}:
     get:
@@ -53,15 +53,15 @@ paths:
             type: string
             format: uuid
       responses:
-        '200':
+        200:
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SittingSpot'
-        '400':
+        400:
           description: Invalid ID supplied
-        '404':
+        404:
           description: Sitting spot not found
     put:
       summary: Updates a sitting spot
@@ -76,10 +76,63 @@ paths:
               items:
                 type: string
       responses:
-        '404':
+        200:
+          description: Sitting spot updated
+        404:
           description: Sitting spot not found
+  /find:
+    get:
+      summary: Find list of sitting spots
+      description: Givent search parameters return relative sitting spots
+      operationId: findSittingSpots
+      parameters:
+        - name: location
+          in: query
+          description: General position of the search
+          required: false
+          schema:
+            $ref: '#/components/schemas/Area'
+        - name: tags
+          in: query
+          description: Tags of the sitting spot
+          required: false
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Tag'
+        - name: labels
+          in: query
+          description: Labels of the sitting spot
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        200:
+          description: Succesful operation
 components:
   schemas:
+    Location:
+      description: x,y coordinates
+      properties:
+        x:
+          type: number
+        y:
+          type: number
+    Area:
+      description: An area with a location as center
+      properties:
+        center:
+          $ref : '#/components/schemas/Location'
+        range:
+          type: number
+    Tag:
+      properties:
+        key:
+          type: string
+        value:
+          type: string
     SittingSpot:
       type: object
       properties:
@@ -87,21 +140,11 @@ components:
           type: string
           format: uuid
         location:
-          type: object
-          properties:
-            x:
-              type: number
-            y:
-              type: number
+          $ref : '#/components/schemas/Location'
         tags:
           type: array
           items:
-            type: object
-            properties:
-              tag:
-                type: string
-              value:
-                type: string
+            $ref : '#/components/schemas/Tag'
         labels:
           type: array
           items:
