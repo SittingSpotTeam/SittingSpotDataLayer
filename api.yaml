@@ -65,8 +65,8 @@ paths:
           description: Sitting spot not found
     put:
       summary: Updates a sitting spot
-      description: ''
-      operationId: updatePetWithForm
+      description: Update a sitting spot
+      operationId: updateSittingSpot
       requestBody: 
         description: Custom labels to be added to the sitting spot
         content: 
