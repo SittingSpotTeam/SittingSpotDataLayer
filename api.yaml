@@ -19,7 +19,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/SittingSpot'
+                  $ref: '#/components/schemas/SittingSpotOutDTO'
     post:
       summary: Add a new sitting spot
       description: Add a new sitting spot
@@ -28,7 +28,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SittingSpot'
+              $ref: '#/components/schemas/SittingSpotInDTO'
         required: true
       responses:
         201:
@@ -36,7 +36,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SittingSpot'
+                $ref: '#/components/schemas/SittingSpotOutDTO'
         400:
           description: Invalid input
   /{Id}:
@@ -58,7 +58,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SittingSpot'
+                $ref: '#/components/schemas/SittingSpotOutDTO'
         400:
           description: Invalid ID supplied
         404:
@@ -89,7 +89,7 @@ paths:
         - name: location
           in: query
           description: General position of the search
-          required: false
+          required: true
           schema:
             $ref: '#/components/schemas/Area'
         - name: tags
@@ -111,6 +111,12 @@ paths:
       responses:
         200:
           description: Succesful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SittingSpotOutDTO'
 components:
   schemas:
     Location:
@@ -133,6 +139,34 @@ components:
           type: string
         value:
           type: string
+    SittingSpotInDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        location:
+          $ref: '#/components/schemas/Location'
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    SittingSpotOutDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        location:
+          $ref: '#/components/schemas/Location'
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        labels:
+          type: array
+          items:
+            type: string
     SittingSpot:
       type: object
       properties:
