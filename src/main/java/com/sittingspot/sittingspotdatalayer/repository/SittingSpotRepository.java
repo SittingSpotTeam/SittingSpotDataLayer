@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.UUID;
 
-public interface SittingSpotRepository extends JpaRepositoryImplementation<SittingSpot, UUID> {
+public interface SittingSpotRepository extends JpaRepositoryImplementation<SittingSpot, String> {
 
     @Query(value = "SELECT * from sitting_spot s " +
             "where s.location.x between :area.center.x - :area.range and :area.center.x + :area.range " +

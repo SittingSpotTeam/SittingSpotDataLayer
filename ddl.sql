@@ -1,6 +1,6 @@
 CREATE TABLE sitting_spot
 (
-    id UUID             NOT NULL,
+    id TEXT             NOT NULL,
     x  DOUBLE PRECISION NOT NULL,
     y  DOUBLE PRECISION NOT NULL,
     CONSTRAINT pk_sitting_spot PRIMARY KEY (id)
@@ -8,13 +8,13 @@ CREATE TABLE sitting_spot
 
 CREATE TABLE sitting_spot_labels
 (
-    id     UUID NOT NULL,
+    id     TEXT NOT NULL,
     labels VARCHAR(255)
 );
 
 CREATE TABLE sitting_spot_tags
 (
-    id    UUID NOT NULL,
+    id    TEXT NOT NULL,
     key   OID,
     value OID
 );

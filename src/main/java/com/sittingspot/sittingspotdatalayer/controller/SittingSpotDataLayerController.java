@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
-@RestController("/sitting-spot-dl/api/v1")
+@RestController("/api/v1")
 public class SittingSpotDataLayerController {
 
     private SittingSpotRepository sittingSpotRepository;
@@ -39,14 +39,14 @@ public class SittingSpotDataLayerController {
     }
 
     @GetMapping("/{Id}")
-    public SittingSpotOutDTO getSittingSpot(@PathVariable UUID Id) {
+    public SittingSpotOutDTO getSittingSpot(@PathVariable String Id) {
         return sittingSpotRepository.findById(Id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sitting spot not found")
         ).toOutDTO();
     }
 
     @PutMapping("/{Id}")
-    public void updateSittingSpot(@PathVariable UUID Id, @RequestBody List<String> labels) {
+    public void updateSittingSpot(@PathVariable String Id, @RequestBody List<String> labels) {
         var sittingSpot = sittingSpotRepository.findById(Id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sitting spot not found")
         );

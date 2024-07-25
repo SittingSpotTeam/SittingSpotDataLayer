@@ -10,5 +10,5 @@ import java.util.UUID;
 /**
  * DTO for {@link com.sittingspot.sittingspotdatalayer.models.SittingSpot}
  */
-public record SittingSpotInDTO(UUID id, Location location, List<Tag> tags) implements Serializable {
+public record SittingSpotInDTO(String id, Location location, List<Tag> tags) implements Serializable {
 }

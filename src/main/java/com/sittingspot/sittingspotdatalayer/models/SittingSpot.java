@@ -19,7 +19,7 @@ import java.util.UUID;
 public class SittingSpot {
     @Id
     @Column(name = "id", nullable = false)
-    private UUID id;
+    private String id;
 
     @Embedded
     private Location location;
