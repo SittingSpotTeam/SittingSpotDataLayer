@@ -1,0 +1,1 @@
+docker build . -t sittingspotapp/sittingspotdatalayer:1.3-dev && docker push sittingspotapp/sittingspotdatalayer:1.3-dev
