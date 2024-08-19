@@ -3,6 +3,7 @@ package com.sittingspot.sittingspotdatalayer.controller;
 import com.sittingspot.sittingspotdatalayer.DTO.SittingSpotInDTO;
 import com.sittingspot.sittingspotdatalayer.DTO.SittingSpotOutDTO;
 import com.sittingspot.sittingspotdatalayer.models.Area;
+import com.sittingspot.sittingspotdatalayer.models.Location;
 import com.sittingspot.sittingspotdatalayer.models.SittingSpot;
 import com.sittingspot.sittingspotdatalayer.models.Tag;
 import com.sittingspot.sittingspotdatalayer.repository.SittingSpotRepository;
@@ -55,11 +56,14 @@ public class SittingSpotDataLayerController {
     }
 
     @GetMapping("/find")
-    public List<SittingSpotOutDTO> findSittingSpots(@RequestParam("location")Area location,
+    public List<SittingSpotOutDTO> findSittingSpots(@RequestParam("x") Double x,
+                                                    @RequestParam("y") Double y,
+                                                    @RequestParam("area") Double area,
                                                     @RequestParam(value = "tags", required = false)List<Tag> tags,
                                                     @RequestParam(value = "labels",required = false)List<String> labels) {
-        return sittingSpotRepository.findByArea(location).stream().filter(x ->
-             (new HashSet<>(x.getTags()).containsAll(tags) && new HashSet<>(x.getLabels()).containsAll(labels))
+        var location = new Area(new Location(x,y),area);
+        return sittingSpotRepository.findByArea(location).stream().filter(e ->
+             (new HashSet<>(e.getTags()).containsAll(tags) && new HashSet<>(e.getLabels()).containsAll(labels))
         ).map(SittingSpot::toOutDTO).toList();
     }
 }
