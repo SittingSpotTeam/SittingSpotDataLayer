@@ -12,8 +12,8 @@ import java.util.UUID;
 public interface SittingSpotRepository extends JpaRepositoryImplementation<SittingSpot, String> {
 
     @Query(value = "SELECT * from sitting_spot s " +
-            "where s.location.x between :area.center.x - :area.range and :area.center.x + :area.range " +
-            "and s.location.y between :area.center.y - :area.range and :area.center.y + :area.range ", nativeQuery = true)
-    public List<SittingSpot> findByArea(@Param("area") Area area);
+            "where s.location.x between :x - :range and :x + :range " +
+            "and s.location.y between :y - :range and :y + :range ", nativeQuery = true)
+    public List<SittingSpot> findByArea(@Param("x") Double x,@Param("y") Double y,@Param("range") Double range);
 
 }
