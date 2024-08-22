@@ -4,7 +4,7 @@ info:
   description: Data Layer managing internal storage for sitting spots.
   version: 1.0.0
 servers:
-  - url: https://sitting-spot-dl/api/v1
+  - url: http://sittingspotdatalayer/api/v1
 paths:
   /:
     get:
